@@ -34,12 +34,12 @@ navigator.bluetooth.requestDevice({ filters: [{
     myPower = characteristic;
     return myPower.startNotifications().then(function (_) {
       console.log('> Notifications started');
-      connected();
       myPower.addEventListener('characteristicvaluechanged', function (e) {
 var dataView = e.target.value;
 wattValue = dataView.getInt16(6,true);
-//console.log(wattValue);
+console.log(wattValue + "watts");
 cadValue = dataView.getUint16(4,true);
+console.log(cadValue = "cadence");
 
 });
    });
