@@ -1,9 +1,12 @@
 // Bluetooth Bike Trainer Functions In This Section
 
+
 let usingTrainer;
 let myControl;
 let wattValue;
 let cadValue;
+let bleConnected = false;
+let bluetoothDevice;
 
 function Trainer() {
   usingTrainer = true;
@@ -31,7 +34,7 @@ navigator.bluetooth.requestDevice({ filters: [{
     myPower = characteristic;
     return myPower.startNotifications().then(function (_) {
       console.log('> Notifications started');
-      //connected();
+      connected();
       myPower.addEventListener('characteristicvaluechanged', function (e) {
 var dataView = e.target.value;
 wattValue = dataView.getInt16(6,true);
@@ -138,7 +141,7 @@ navigator.bluetooth.requestDevice({ filters: [{
     myPower = characteristic;
     return myPower.startNotifications().then(function (_) {
       console.log('> Notifications started');
-      //connected();
+      connected();
       myPower.addEventListener('characteristicvaluechanged', function (e) {
 var dataView = e.target.value;
 wattValue = dataView.getInt16(2,true);
@@ -164,9 +167,9 @@ window.alert("Web Bluetooth Not Supported In This Browser.  Supported Browsers I
 
 function connectBle() {
   if (usingTrainer) {
-    //Trainer();
+    Trainer();
   } else if (usingPowerMeter) {
-    //PowerMeter();
+    PowerMeter();
   }
 }
 
@@ -180,3 +183,4 @@ function fakeBle() {
     };
   };
 }
+Trainer();
